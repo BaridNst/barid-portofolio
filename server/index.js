@@ -11,6 +11,18 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 })
 
+const ensureTable = async () => {
+  await pool.query(
+    `CREATE TABLE IF NOT EXISTS messages (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      message TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`
+  )
+}
+
 const app = express()
 app.use(express.json())
 
@@ -50,6 +62,13 @@ app.use((err, req, res, next) => {
 })
 
 const port = process.env.PORT || 3001
-app.listen(port, () => {
-  console.log(`Backend jalan di http://localhost:${port} (MySQL db_portofolio)`)
-})
+ensureTable()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Backend jalan di http://localhost:${port} (MySQL ${process.env.DB_NAME || 'db_portofolio'})`)
+    })
+  })
+  .catch((err) => {
+    console.error('DB init failed:', err.message)
+    process.exit(1)
+  })
