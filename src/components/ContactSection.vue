@@ -379,7 +379,10 @@ const socialLinks = [
   );
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 12px -2px rgba(139, 92, 246, 0.06);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   position: relative;
 }
@@ -445,7 +448,12 @@ const socialLinks = [
   border: 1px solid rgba(167, 139, 250, 0.15);
   background: white;
   color: #6b7280;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.06);
 }
 .contact-social-btn:hover {
@@ -603,7 +611,9 @@ const socialLinks = [
     0 4px 16px -4px rgba(139, 92, 246, 0.45),
     0 2px 4px -1px rgba(139, 92, 246, 0.2);
   cursor: pointer;
-  transition: all 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
   position: relative;
   overflow: hidden;
 }
@@ -692,6 +702,26 @@ const socialLinks = [
   }
   .contact-form-card {
     padding: 1.25rem;
+  }
+}
+
+/* ═══════ Mobile perf: drop expensive GPU filters ═══════ */
+@media (hover: none), (max-width: 640px) {
+  .contact-orb {
+    animation: none;
+    filter: blur(30px);
+    opacity: 0.2;
+  }
+  .contact-info-card,
+  .contact-social-card,
+  .contact-form-card,
+  .contact-input,
+  .contact-textarea {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .contact-sparkle {
+    animation: none;
   }
 }
 </style>

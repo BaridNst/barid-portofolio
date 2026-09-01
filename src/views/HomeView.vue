@@ -51,14 +51,14 @@ const aboutPoints = [
           >
             <a
               href="#project"
-              class="group font-jakarta inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(124,58,237,0.6)] transition-all duration-300 hover:scale-105 hover:bg-violet-500 hover:shadow-[0_14px_35px_-10px_rgba(124,58,237,0.7)] active:scale-95"
+              class="group font-jakarta inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(124,58,237,0.6)] transition-[transform,background-color,box-shadow] duration-300 hover:scale-105 hover:bg-violet-500 hover:shadow-[0_14px_35px_-10px_rgba(124,58,237,0.7)] active:scale-95"
             >
               Lihat Proyek
               <ArrowRight class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
               href="#contact"
-              class="font-jakarta inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/60 px-6 py-3 text-sm font-semibold text-violet-700 shadow-[0_8px_24px_-12px_rgba(124,58,237,0.35)] transition-all duration-300 hover:scale-105 hover:bg-violet-50 hover:shadow-[0_12px_28px_-12px_rgba(124,58,237,0.45)] active:scale-95 backdrop-blur"
+              class="font-jakarta inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/60 px-6 py-3 text-sm font-semibold text-violet-700 shadow-[0_8px_24px_-12px_rgba(124,58,237,0.35)] transition-[transform,background-color,box-shadow,border-color] duration-300 hover:scale-105 hover:bg-violet-50 hover:shadow-[0_12px_28px_-12px_rgba(124,58,237,0.45)] active:scale-95 backdrop-blur"
             >
               Hubungi Saya
             </a>
@@ -249,9 +249,15 @@ const aboutPoints = [
   background: rgba(30, 35, 48, 0.9);
   padding: 1rem;
   border: 1px solid rgba(100, 116, 139, 0.25);
-  backdrop-filter: blur(4px);
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+@media (hover: none), (max-width: 640px) {
+  .hero-3d-inner {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 </style>

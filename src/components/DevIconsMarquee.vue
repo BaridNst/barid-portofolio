@@ -45,7 +45,7 @@ const iconsBottom = [
       <div class="marquee-container overflow-hidden w-full">
         <div class="marquee-track-left flex w-max items-center">
           <div
-            v-for="(icon, i) in [...iconsTop, ...iconsTop, ...iconsTop, ...iconsTop]"
+            v-for="(icon, i) in [...iconsTop, ...iconsTop]"
             :key="'top-' + i"
             class="flex items-center gap-3 shrink-0 px-4 sm:px-6"
           >
@@ -70,7 +70,7 @@ const iconsBottom = [
       <div class="marquee-container overflow-hidden w-full">
         <div class="marquee-track-right flex w-max items-center">
           <div
-            v-for="(icon, i) in [...iconsBottom, ...iconsBottom, ...iconsBottom, ...iconsBottom]"
+            v-for="(icon, i) in [...iconsBottom, ...iconsBottom]"
             :key="'bottom-' + i"
             class="flex items-center gap-3 shrink-0 px-4 sm:px-6"
           >
@@ -128,6 +128,13 @@ const iconsBottom = [
   .marquee-track-left,
   .marquee-track-right {
     animation: none;
+  }
+}
+
+/* ═══════ Mobile perf: drop expensive GPU filters ═══════ */
+@media (hover: none), (max-width: 640px) {
+  .marquee-container img {
+    filter: none;
   }
 }
 </style>

@@ -429,7 +429,9 @@ onMounted(() => setup(wrapperRef.value))
     0 4px 24px -4px rgba(139, 92, 246, 0.12),
     0 12px 48px -8px rgba(139, 92, 246, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .profile-main-card:hover {
   box-shadow:
@@ -542,7 +544,10 @@ onMounted(() => setup(wrapperRef.value))
   ) !important;
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 12px -2px rgba(139, 92, 246, 0.08);
-  transition: all 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s,
+    border-color 0.3s;
   overflow: hidden;
   position: relative;
 }
@@ -795,6 +800,32 @@ onMounted(() => setup(wrapperRef.value))
   }
   .profile-tabs {
     flex-wrap: wrap;
+  }
+}
+
+/* ═══════ Mobile perf: drop expensive GPU filters ═══════ */
+@media (hover: none), (max-width: 640px) {
+  .profile-orb {
+    animation: none;
+    filter: blur(24px);
+    opacity: 0.35;
+  }
+  .profile-sparkle,
+  .profile-stack-dot {
+    animation: none;
+  }
+  .profile-main-card,
+  .profile-info-card,
+  .profile-skill-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .profile-skill-chip {
+    transition:
+      transform 0.3s,
+      border-color 0.3s,
+      background-color 0.3s,
+      box-shadow 0.3s;
   }
 }
 </style>

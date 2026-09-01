@@ -26,7 +26,7 @@ const items = [
           v-for="(item, i) in items"
           :key="item.to"
           :href="item.to"
-          class="fade-down shrink-0 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold text-gray-900 transition-all duration-300 hover:scale-105 hover:bg-violet-200 hover:text-violet-900 active:scale-90 active:bg-violet-300 active:text-violet-900 sm:px-3 sm:text-sm"
+          class="fade-down shrink-0 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold text-gray-900 transition-[transform,background-color,color] duration-300 hover:scale-105 hover:bg-violet-200 hover:text-violet-900 active:scale-90 active:bg-violet-300 active:text-violet-900 sm:px-3 sm:text-sm"
           :style="{ animationDelay: `${i * 0.05}s` }"
         >
           {{ item.label }}
