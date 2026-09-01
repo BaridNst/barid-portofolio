@@ -170,11 +170,12 @@ onMounted(fetchRepos)
       >
         <!-- Project Image -->
         <figure class="relative w-full aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
-          <img
+              <img
             src="/images/baridlogo.png"
             :alt="repo.name"
             class="w-24 h-24 object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-[0_0_20px_rgba(139,92,246,0.4)]"
             loading="lazy"
+            decoding="async"
           />
           <!-- Gradient Overlay on Image -->
           <div

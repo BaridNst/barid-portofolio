@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { usePauseWhenHidden } from '../composables/usePauseWhenHidden'
 import {
   Send,
   Sparkles,
@@ -20,6 +21,10 @@ const form = ref({
 
 const isSubmitting = ref(false)
 const isSubmitted = ref(false)
+
+const wrapperRef = ref(null)
+const { setup } = usePauseWhenHidden()
+onMounted(() => setup(wrapperRef.value))
 
 const canSubmit = computed(() => {
   return form.value.name && form.value.email && form.value.message
@@ -96,7 +101,7 @@ const socialLinks = [
 </script>
 
 <template>
-  <div class="contact-wrapper">
+  <div ref="wrapperRef" class="contact-wrapper">
     <!-- Animated Background Orbs -->
     <div class="contact-orb contact-orb--1"></div>
     <div class="contact-orb contact-orb--2"></div>

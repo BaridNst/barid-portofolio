@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { usePauseWhenHidden } from '../../composables/usePauseWhenHidden'
 import {
   GraduationCap,
   Briefcase,
@@ -129,10 +130,14 @@ const skillCategories = ref([
 ])
 
 const activeTab = ref('all')
+
+const wrapperRef = ref(null)
+const { setup } = usePauseWhenHidden()
+onMounted(() => setup(wrapperRef.value))
 </script>
 
 <template>
-  <div class="profile-card-wrapper">
+  <div ref="wrapperRef" class="profile-card-wrapper">
     <!-- Ambient Background Orbs -->
     <div class="profile-orb profile-orb--tl"></div>
     <div class="profile-orb profile-orb--br"></div>
@@ -217,11 +222,16 @@ const activeTab = ref('all')
               <div class="card profile-info-card">
                 <div class="card-body p-4 flex-row items-center gap-3">
                   <div class="profile-info-logo">
-                    <img
-                      :src="companyLogo"
-                      alt="Ideolog Tech Logo"
-                      class="size-full object-contain rounded-lg"
-                    />
+                    <picture>
+                      <source :srcset="companyLogo.replace(/\.[^.]+$/, '.webp')" type="image/webp" />
+                      <img
+                        :src="companyLogo"
+                        alt="Ideolog Tech Logo"
+                        class="size-full object-contain rounded-lg"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-1.5">
@@ -249,11 +259,16 @@ const activeTab = ref('all')
 
               <div class="card profile-image-card">
                 <figure class="profile-image-figure">
-                  <img
-                    :src="imageSrc"
-                    :alt="imageAlt"
-                    class="profile-image"
-                  />
+                  <picture>
+                    <source :srcset="imageSrc.replace(/\.[^.]+$/, '.webp')" type="image/webp" />
+                    <img
+                      :src="imageSrc"
+                      :alt="imageAlt"
+                      class="profile-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                   <!-- Caption Overlay -->
                   <div class="profile-image-overlay">
                     <p class="profile-image-caption">
@@ -332,6 +347,8 @@ const activeTab = ref('all')
                           :src="`/images/icons/${skill.icon}.svg`"
                           :alt="skill.name"
                           class="size-5 shrink-0 object-contain transition-transform duration-300 group-hover/skill:rotate-12"
+                          loading="lazy"
+                          decoding="async"
                         />
                         <span class="font-jakarta text-xs font-medium text-gray-600 group-hover/skill:text-violet-600">
                           {{ skill.name }}

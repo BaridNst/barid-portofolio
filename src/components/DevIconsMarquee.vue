@@ -1,4 +1,11 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import { usePauseWhenHidden } from '../composables/usePauseWhenHidden'
+
+const sectionRef = ref(null)
+const { setup } = usePauseWhenHidden()
+onMounted(() => setup(sectionRef.value))
+
 const iconsTop = [
   { name: 'vuejs', label: 'Vue.js' },
   { name: 'tailwindcss', label: 'Tailwind CSS' },
@@ -32,7 +39,7 @@ const iconsBottom = [
 </script>
 
 <template>
-  <section class="relative w-full overflow-hidden py-6 sm:py-10 bg-slate-950 select-none z-20">
+  <section ref="sectionRef" class="relative w-full overflow-hidden py-6 sm:py-10 bg-slate-950 select-none z-20">
     <!-- Black Ribbon (Back / Top Layer) -->
     <div class="relative z-10 w-[112%] -left-[6%] transform -rotate-2 bg-[#09090b] py-3.5 sm:py-4.5 border-y border-neutral-800">
       <div class="marquee-container overflow-hidden w-full">
@@ -46,6 +53,8 @@ const iconsBottom = [
               :src="`/images/icons/${icon.name}.svg`"
               :alt="icon.label"
               class="size-6 sm:size-7 md:size-8 object-contain filter drop-shadow-md transition-transform duration-300 hover:scale-125"
+              loading="lazy"
+              decoding="async"
             />
             <span class="font-extrabold tracking-wider text-xs sm:text-sm md:text-base uppercase text-white whitespace-nowrap font-jakarta">
               {{ icon.label }}
@@ -69,6 +78,8 @@ const iconsBottom = [
               :src="`/images/icons/${icon.name}.svg`"
               :alt="icon.label"
               class="size-6 sm:size-7 md:size-8 object-contain filter drop-shadow-md transition-transform duration-300 hover:scale-125"
+              loading="lazy"
+              decoding="async"
             />
             <span class="font-extrabold tracking-wider text-xs sm:text-sm md:text-base uppercase text-white whitespace-nowrap font-jakarta">
               {{ icon.label }}

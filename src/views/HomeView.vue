@@ -16,7 +16,7 @@ const aboutPoints = [
   <div class="w-full overflow-hidden">
     <section
       id="top"
-      class="relative flex items-center bg-gradient-to-b from-[#fafafa] via-[#fafafa] via-75% to-slate-950 px-6 pt-6 pb-16 sm:px-10 sm:pt-8 sm:pb-24 lg:pt-10 lg:pb-28"
+      class="cv-auto relative flex items-center bg-gradient-to-b from-[#fafafa] via-[#fafafa] via-75% to-slate-950 px-6 pt-6 pb-16 sm:px-10 sm:pt-8 sm:pb-24 lg:pt-10 lg:pb-28"
     >
       <div class="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-2">
         <div class="flex flex-col items-start gap-6">
@@ -74,11 +74,16 @@ const aboutPoints = [
                 <!-- Inner card container -->
                 <div class="hero-3d-inner">
                   <div class="w-full overflow-hidden rounded-xl shadow-inner">
-                    <img
-                      src="/images/haram-malas.jpg"
-                      alt="Rakus Akan Ilmu Menjadi Pilihanku"
-                      class="block w-full rounded-xl object-cover"
-                    />
+                    <picture>
+                      <source srcset="/images/haram-malas.webp" type="image/webp" />
+                      <img
+                        src="/images/haram-malas.jpg"
+                        alt="Rakus Akan Ilmu Menjadi Pilihanku"
+                        class="block w-full rounded-xl object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                   </div>
                   <p class="pt-3 text-center font-jakarta text-sm font-medium italic text-slate-300/90 tracking-wide">
                     "Rakus Akan Ilmu Menjadi Pilihanku"
@@ -105,7 +110,7 @@ const aboutPoints = [
 
     <section
       id="about"
-      class="flex min-h-svh scroll-mt-24 items-center bg-[#fafafa] px-4 py-16 sm:px-8 relative overflow-hidden"
+      class="cv-auto flex min-h-svh scroll-mt-24 items-center bg-[#fafafa] px-4 py-16 sm:px-8 relative overflow-hidden"
     >
       <div class="mx-auto w-full max-w-6xl relative z-10">
         <div class="text-center mb-6">
@@ -123,7 +128,7 @@ const aboutPoints = [
 
     <section
       id="project"
-      class="min-h-svh scroll-mt-24 bg-[#fafafa] px-4 pt-16 pb-8 sm:px-8 relative overflow-hidden"
+      class="cv-auto min-h-svh scroll-mt-24 bg-[#fafafa] px-4 pt-16 pb-8 sm:px-8 relative overflow-hidden"
     >
       <div class="mx-auto w-full max-w-6xl relative z-10">
         <div class="text-center mb-10">
@@ -141,7 +146,7 @@ const aboutPoints = [
 
     <section
       id="contact"
-      class="min-h-svh scroll-mt-24 bg-gradient-to-b from-[#fafafa] via-violet-50/40 to-violet-100/60 px-4 pt-8 pb-16 sm:px-8 relative overflow-hidden"
+      class="cv-auto min-h-svh scroll-mt-24 bg-gradient-to-b from-[#fafafa] via-violet-50/40 to-violet-100/60 px-4 pt-8 pb-16 sm:px-8 relative overflow-hidden"
     >
       <div class="mx-auto w-full max-w-6xl relative z-10">
         <ContactSection />
@@ -151,6 +156,16 @@ const aboutPoints = [
 </template>
 
 <style scoped>
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px;
+}
+
+.cv-auto:global(.hidden),
+.cv-auto[hidden] {
+  display: none;
+}
+
 .fade-up {
   animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
