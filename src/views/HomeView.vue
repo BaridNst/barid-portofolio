@@ -74,16 +74,13 @@ const aboutPoints = [
                 <!-- Inner card container -->
                 <div class="hero-3d-inner">
                   <div class="w-full overflow-hidden rounded-xl shadow-inner">
-                    <picture>
-                      <source srcset="/images/haram-malas.webp" type="image/webp" />
-                      <img
-                        src="/images/haram-malas.jpg"
-                        alt="Rakus Akan Ilmu Menjadi Pilihanku"
-                        class="block w-full rounded-xl object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </picture>
+                    <img
+                      src="/images/haram-malas.webp"
+                      alt="Rakus Akan Ilmu Menjadi Pilihanku"
+                      class="block w-full rounded-xl object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <p class="pt-3 text-center font-jakarta text-sm font-medium italic text-slate-300/90 tracking-wide">
                     "Rakus Akan Ilmu Menjadi Pilihanku"

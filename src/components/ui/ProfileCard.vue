@@ -62,11 +62,11 @@ const props = defineProps({
   },
   companyLogo: {
     type: String,
-    default: '/images/LOGOIdeolog.Tech.png',
+    default: '/images/LOGOIdeolog.Tech.webp',
   },
   imageSrc: {
     type: String,
-    default: '/images/baridabout.jpeg',
+    default: '/images/baridabout.webp',
   },
   imageAlt: {
     type: String,
@@ -222,16 +222,13 @@ onMounted(() => setup(wrapperRef.value))
               <div class="card profile-info-card">
                 <div class="card-body p-4 flex-row items-center gap-3">
                   <div class="profile-info-logo">
-                    <picture>
-                      <source :srcset="companyLogo.replace(/\.[^.]+$/, '.webp')" type="image/webp" />
-                      <img
-                        :src="companyLogo"
-                        alt="Ideolog Tech Logo"
-                        class="size-full object-contain rounded-lg"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </picture>
+                    <img
+                      :src="companyLogo"
+                      alt="Ideolog Tech Logo"
+                      class="size-full object-contain rounded-lg"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-1.5">
@@ -259,16 +256,13 @@ onMounted(() => setup(wrapperRef.value))
 
               <div class="card profile-image-card">
                 <figure class="profile-image-figure">
-                  <picture>
-                    <source :srcset="imageSrc.replace(/\.[^.]+$/, '.webp')" type="image/webp" />
-                    <img
-                      :src="imageSrc"
-                      :alt="imageAlt"
-                      class="profile-image"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
+                  <img
+                    :src="imageSrc"
+                    :alt="imageAlt"
+                    class="profile-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <!-- Caption Overlay -->
                   <div class="profile-image-overlay">
                     <p class="profile-image-caption">
