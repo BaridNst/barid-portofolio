@@ -1,9 +1,20 @@
 <script setup>
+import { defineAsyncComponent } from 'vue'
 import { ArrowRight } from '@lucide/vue'
-import DevIconsMarquee from '../components/DevIconsMarquee.vue'
-import ProfileCard from '../components/ui/ProfileCard.vue'
-import GitHubProjects from '../components/GitHubProjects.vue'
-import ContactSection from '../components/ContactSection.vue'
+
+// Lazy load all below-fold components — reduces initial JS bundle & TBT dramatically
+const DevIconsMarquee = defineAsyncComponent(() =>
+  import('../components/DevIconsMarquee.vue')
+)
+const ProfileCard = defineAsyncComponent(() =>
+  import('../components/ui/ProfileCard.vue')
+)
+const GitHubProjects = defineAsyncComponent(() =>
+  import('../components/GitHubProjects.vue')
+)
+const ContactSection = defineAsyncComponent(() =>
+  import('../components/ContactSection.vue')
+)
 
 const aboutPoints = [
   'Membangun antarmuka yang responsif & interaktif dengan Vue & Tailwind',
@@ -77,9 +88,12 @@ const aboutPoints = [
                     <img
                       src="/images/haram-malas.webp"
                       alt="Rakus Akan Ilmu Menjadi Pilihanku"
+                      width="400"
+                      height="500"
                       class="block w-full rounded-xl object-cover"
-                      loading="lazy"
-                      decoding="async"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="sync"
                     />
                   </div>
                   <p class="pt-3 text-center font-jakarta text-sm font-medium italic text-slate-300/90 tracking-wide">
@@ -155,7 +169,7 @@ const aboutPoints = [
 <style scoped>
 .cv-auto {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 1000px;
+  contain-intrinsic-size: auto 1000px;
 }
 
 .cv-auto:global(.hidden),

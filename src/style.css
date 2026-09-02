@@ -9,6 +9,8 @@
   font-family: "Another Danger";
   src: url("/fonts/AnotherDanger.otf") format("opentype");
   font-display: swap;
+  font-weight: normal;
+  font-style: normal;
 }
 
 @theme {

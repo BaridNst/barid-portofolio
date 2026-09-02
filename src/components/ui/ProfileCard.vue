@@ -201,11 +201,18 @@ onMounted(() => setup(wrapperRef.value))
               <div class="card profile-info-card">
                 <div class="card-body p-4 flex-row items-center gap-3">
                   <div class="profile-info-logo">
-                    <img
-                      :src="educationLogo"
-                      alt="UIN Ar-Raniry Logo"
-                      class="size-full object-contain"
-                    />
+                    <picture>
+                      <source srcset="/images/LOGOUIN.webp" type="image/webp" />
+                      <img
+                        :src="educationLogo"
+                        alt="UIN Ar-Raniry Logo"
+                        width="44"
+                        height="44"
+                        class="size-full object-contain"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </picture>
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-1.5">
@@ -225,6 +232,8 @@ onMounted(() => setup(wrapperRef.value))
                     <img
                       :src="companyLogo"
                       alt="Ideolog Tech Logo"
+                      width="44"
+                      height="44"
                       class="size-full object-contain rounded-lg"
                       loading="lazy"
                       decoding="async"
@@ -259,6 +268,8 @@ onMounted(() => setup(wrapperRef.value))
                   <img
                     :src="imageSrc"
                     :alt="imageAlt"
+                    width="400"
+                    height="420"
                     class="profile-image"
                     loading="lazy"
                     decoding="async"
@@ -340,6 +351,8 @@ onMounted(() => setup(wrapperRef.value))
                         <img
                           :src="`/images/icons/${skill.icon}.svg`"
                           :alt="skill.name"
+                          width="20"
+                          height="20"
                           class="size-5 shrink-0 object-contain transition-transform duration-300 group-hover/skill:rotate-12"
                           loading="lazy"
                           decoding="async"
@@ -382,8 +395,8 @@ onMounted(() => setup(wrapperRef.value))
   position: absolute;
   border-radius: 9999px;
   filter: blur(60px);
-  opacity: 0.55;
-  animation: orbPulse 6s ease-in-out infinite alternate;
+  opacity: 0.45;
+  /* Removed continuous animation — uses less GPU on initial load */
 }
 .profile-orb--tl {
   top: -3rem;
@@ -398,7 +411,6 @@ onMounted(() => setup(wrapperRef.value))
   width: 22rem;
   height: 22rem;
   background: radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, rgba(232, 121, 249, 0.15) 60%, transparent 100%);
-  animation-delay: 3s;
 }
 
 @keyframes orbPulse {
@@ -418,7 +430,7 @@ onMounted(() => setup(wrapperRef.value))
     rgba(237, 233, 254, 0.88) 60%,
     rgba(245, 243, 255, 0.95) 100%
   );
-  backdrop-filter: blur(20px) saturate(1.4);
+  /* Removed backdrop-filter blur — huge GPU savings */
   box-shadow:
     0 4px 24px -4px rgba(139, 92, 246, 0.12),
     0 12px 48px -8px rgba(139, 92, 246, 0.08),
@@ -465,7 +477,7 @@ onMounted(() => setup(wrapperRef.value))
 
 .profile-sparkle {
   color: #8b5cf6;
-  animation: spinSlow 8s linear infinite;
+  /* Removed continuous spin animation — saves CPU */
 }
 
 /* Name */
@@ -536,7 +548,7 @@ onMounted(() => setup(wrapperRef.value))
     rgba(255, 255, 255, 0.85),
     rgba(245, 243, 255, 0.7)
   ) !important;
-  backdrop-filter: blur(12px);
+  /* Removed backdrop-filter — GPU savings */
   box-shadow: 0 2px 12px -2px rgba(139, 92, 246, 0.08);
   transition:
     transform 0.3s,
@@ -695,7 +707,7 @@ onMounted(() => setup(wrapperRef.value))
   height: 0.5rem;
   border-radius: 9999px;
   background: #8b5cf6;
-  animation: dotPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  /* Removed continuous pulse animation — saves CPU */
 }
 
 @keyframes dotPing {
@@ -738,7 +750,7 @@ onMounted(() => setup(wrapperRef.value))
     rgba(255, 255, 255, 0.8),
     rgba(245, 243, 255, 0.6)
   ) !important;
-  backdrop-filter: blur(8px);
+  /* Removed backdrop-filter blur — GPU savings */
   box-shadow: 0 2px 8px -2px rgba(139, 92, 246, 0.06);
   transition: all 0.3s;
 }

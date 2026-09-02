@@ -1,19 +1,109 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/images/baridlogo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barid Nasution - Portofolio</title>
+    <meta name="description" content="A Barid Dinda Khair Nasution — Web Developer & Mahasiswa Teknologi Informasi. Membangun aplikasi web modern, responsif, dan interaktif dengan Vue.js, Node.js, dan Laravel." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/baridlogo.png" />
+
+    <!-- DNS prefetch for external APIs -->
+    <link rel="dns-prefetch" href="https://api.github.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preload LCP hero image (above-the-fold) -->
+    <link rel="preload" as="image" href="/images/haram-malas.webp" fetchpriority="high" />
+
+    <!-- Preload custom font -->
+    <link rel="preload" as="font" href="/fonts/AnotherDanger.otf" type="font/otf" crossorigin="anonymous" />
+
+    <!-- Google Fonts: preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts: non-blocking load (print trick) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
-    <title>Barid Nasution - Portofolio</title>
+    <!-- Fallback for no-JS -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    </noscript>
   </head>
   <body>
+    <!-- Critical inline CSS for loading shell — zero render-blocking -->
+    <style>
+      *,::before,::after{box-sizing:border-box}
+      body{margin:0;padding:0;background:#fafafa;font-family:system-ui,sans-serif}
+      #app-shell{
+        position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+        background:#fafafa;z-index:9999;
+        transition:opacity .3s ease;
+      }
+      #app-shell.hidden{opacity:0;pointer-events:none}
+      .shell-nav{
+        position:fixed;top:16px;left:50%;transform:translateX(-50%);
+        background:white;border-radius:9999px;
+        padding:12px 24px;box-shadow:0 4px 20px rgba(0,0,0,.12);
+        display:flex;gap:16px;align-items:center;z-index:100
+      }
+      .shell-nav-dot{width:40px;height:10px;border-radius:9999px;background:#e5e7eb}
+      .shell-hero{max-width:600px;padding:24px;text-align:left}
+      .shell-title{
+        font-size:clamp(1.8rem,5vw,3rem);font-weight:900;line-height:1.2;
+        background:linear-gradient(135deg,#6d28d9,#8b5cf6);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        margin:0 0 12px
+      }
+      .shell-sub{color:#7c3aed;font-weight:600;font-size:1rem;margin:0 0 16px}
+      .shell-bar{height:10px;border-radius:9999px;background:#e5e7eb;margin:8px 0}
+      .shell-bar.w60{width:60%}
+      .shell-bar.w80{width:80%}
+    </style>
+
+    <!-- Static HTML shell for instant FCP before Vue mounts -->
+    <div id="app-shell" aria-hidden="true">
+      <div>
+        <div class="shell-nav">
+          <div class="shell-nav-dot"></div>
+          <div class="shell-nav-dot"></div>
+          <div class="shell-nav-dot"></div>
+          <div class="shell-nav-dot"></div>
+        </div>
+        <div class="shell-hero">
+          <p class="shell-title">A Barid Dinda<br/>Khair Nasution</p>
+          <p class="shell-sub">Web Developer | Mahasiswa Teknologi Informasi</p>
+          <div class="shell-bar w80"></div>
+          <div class="shell-bar w60"></div>
+          <div class="shell-bar w80"></div>
+        </div>
+      </div>
+    </div>
+
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+
+    <!-- Hide shell once Vue mounts -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var shell = document.getElementById('app-shell')
+        // Vue replaces #app — watch for first child in #app
+        var observer = new MutationObserver(function() {
+          var app = document.getElementById('app')
+          if (app && app.children.length > 0) {
+            shell.classList.add('hidden')
+            setTimeout(function(){ shell.remove() }, 400)
+            observer.disconnect()
+          }
+        })
+        observer.observe(document.getElementById('app'), { childList: true, subtree: true })
+      })
+    </script>
   </body>
 </html>

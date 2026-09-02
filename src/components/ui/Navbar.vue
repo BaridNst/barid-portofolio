@@ -14,10 +14,14 @@ const items = [
     >
       <a href="#top" class="motion-logo mr-2 flex shrink-0 items-center sm:mr-6">
         <img
-          src="/images/baridlogo.png"
+          src="/images/baridlogo.webp"
           alt="Barid"
+          width="48"
+          height="48"
           class="h-12 w-12 rounded-full object-cover shadow-sm sm:h-14 sm:w-14"
-          style="width: 3rem; height: 3rem"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
         />
       </a>
 

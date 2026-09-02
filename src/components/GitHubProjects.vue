@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Star, GitFork, ExternalLink, Loader2, AlertCircle } from '@lucide/vue'
+import { Star, GitFork, ExternalLink, AlertCircle } from '@lucide/vue'
 
 // Drag-to-scroll state
 const scrollContainer = ref(null)
@@ -131,10 +131,26 @@ onMounted(fetchRepos)
 
 <template>
   <div class="w-full">
-    <!-- Loading State -->
-    <div v-if="loading" class="flex flex-col items-center justify-center py-20 gap-4">
-      <Loader2 class="size-10 text-violet-400 animate-spin" />
-      <p class="font-jakarta text-sm text-slate-400">Memuat repositori dari GitHub...</p>
+    <!-- Loading State: skeleton cards matching real card dimensions -->
+    <div v-if="loading" class="flex gap-6 overflow-hidden pb-4 -mx-4 px-4">
+      <div
+        v-for="i in 3"
+        :key="i"
+        class="shrink-0 w-[85vw] sm:w-[380px] rounded-2xl border border-slate-800 bg-slate-900/70 overflow-hidden"
+      >
+        <div class="relative w-full aspect-[16/9] bg-slate-800 animate-pulse"></div>
+        <div class="flex flex-col gap-3 p-4 sm:p-5">
+          <div class="h-5 w-3/4 rounded bg-slate-800 animate-pulse"></div>
+          <div class="flex flex-col gap-1.5">
+            <div class="h-3 w-full rounded bg-slate-800 animate-pulse"></div>
+            <div class="h-3 w-2/3 rounded bg-slate-800 animate-pulse"></div>
+          </div>
+          <div class="flex gap-2 pt-1 border-t border-slate-800/60">
+            <div class="h-6 w-16 rounded-lg bg-slate-800 animate-pulse"></div>
+            <div class="h-6 w-10 rounded-lg bg-slate-800 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Error State -->
@@ -171,9 +187,11 @@ onMounted(fetchRepos)
         <!-- Project Image -->
         <figure class="relative w-full aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
               <img
-            src="/images/baridlogo.png"
+            src="/images/baridlogo.webp"
             :alt="repo.name"
-            class="w-24 h-24 object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-[0_0_20px_rgba(139,92,246,0.4)]"
+            width="96"
+            height="96"
+            class="w-24 h-24 object-contain transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
             decoding="async"
           />
