@@ -8,7 +8,6 @@ import {
   Code2,
   Database,
   Wrench,
-  Sparkles,
   MapPin,
   Calendar,
 } from '@lucide/vue'
@@ -161,14 +160,6 @@ onMounted(() => setup(wrapperRef.value))
             class="flex flex-col gap-5"
             :class="imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1'"
           >
-            <!-- DaisyUI Badge -->
-            <div class="flex">
-              <div class="badge badge-lg profile-badge gap-2">
-                <Sparkles class="size-3.5 profile-sparkle" />
-                Portfolio Profile
-              </div>
-            </div>
-
             <!-- Name & Role -->
             <div>
               <h2 class="profile-name">{{ name }}</h2>
@@ -287,9 +278,7 @@ onMounted(() => setup(wrapperRef.value))
         </div>
 
         <!-- Divider -->
-        <div class="divider mx-6 sm:mx-8 lg:mx-10 my-0 before:bg-violet-200/60 after:bg-violet-200/60">
-          <Sparkles class="size-4 text-violet-400" />
-        </div>
+        <div class="divider mx-6 sm:mx-8 lg:mx-10 my-0 before:bg-violet-200/60 after:bg-violet-200/60"></div>
 
         <!-- Tech Stack Section -->
         <div class="p-6 sm:p-8 lg:p-10 pt-2 sm:pt-4">

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Star, GitFork, ExternalLink, AlertCircle } from '@lucide/vue'
+import { Star, GitFork, ExternalLink, AlertCircle, ChevronLeft, ChevronRight } from '@lucide/vue'
 
 // Drag-to-scroll state
 const scrollContainer = ref(null)
@@ -40,6 +40,16 @@ function onClickCapture(e) {
     e.preventDefault()
     e.stopPropagation()
   }
+}
+
+function scrollByAmount(direction) {
+  if (!scrollContainer.value) return
+  const cardWidth = scrollContainer.value.querySelector('.cv-card')?.offsetWidth || 340
+  const amount = cardWidth + 24
+  scrollContainer.value.scrollBy({
+    left: direction === 'left' ? -amount : amount,
+    behavior: 'smooth',
+  })
 }
 
 onMounted(() => {
@@ -168,129 +178,149 @@ onMounted(fetchRepos)
       </button>
     </div>
 
-    <!-- Repos Horizontal Scroll (drag to scroll) -->
-    <div
-      v-else
-      ref="scrollContainer"
-      class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 cursor-grab"
-      @mousedown="onMouseDown"
-    >
-      <a
-        v-for="repo in filteredRepos"
-        :key="repo.id"
-        :href="repo.html_url"
-        target="_blank"
-        rel="noopener noreferrer"
-        :aria-label="`Lihat repositori ${repo.name} di GitHub`"
-        class="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70 shadow-lg cv-card transition-[transform,box-shadow,border-color] duration-300 hover:border-violet-500/50 hover:shadow-[0_12px_40px_-10px_rgba(139,92,246,0.35)] hover:-translate-y-1.5 snap-start shrink-0 w-[85vw] sm:w-[380px]"
-        @click.capture="onClickCapture"
+    <!-- Repos Horizontal Scroll (drag or click buttons to scroll) -->
+    <div v-else class="relative w-full">
+      <!-- Left Navigation Arrow -->
+      <button
+        @click="scrollByAmount('left')"
+        aria-label="Scroll proyek ke kiri"
+        class="absolute -left-4 sm:-left-12 top-1/2 -translate-y-1/2 z-30 size-10 sm:size-12 rounded-full border border-violet-500/40 bg-slate-900/95 text-white shadow-2xl backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:bg-violet-600 hover:border-violet-400 hover:scale-110 active:scale-95"
       >
-        <!-- Project Image -->
-        <figure class="relative w-full aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
-              <img
-            src="/images/baridlogo.webp"
-            :alt="repo.name"
-            width="96"
-            height="96"
-            class="w-24 h-24 object-contain transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-            decoding="async"
-          />
-          <!-- Gradient Overlay on Image -->
-          <div
-            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"
-          ></div>
-        </figure>
+        <ChevronLeft class="size-6 text-violet-200" />
+      </button>
 
-        <!-- Card Body -->
-        <div class="flex flex-1 flex-col gap-3 p-4 sm:p-5">
-          <!-- Title + Badge -->
-          <div class="flex items-start gap-2">
-            <h3
-              class="font-jakarta text-base sm:text-lg font-bold text-white leading-snug group-hover:text-violet-300 transition-colors line-clamp-1 flex-1"
-            >
-              {{ repo.name.replace(/-/g, ' ').replace(/_/g, ' ') }}
-            </h3>
+      <!-- Scroll Container -->
+      <div
+        ref="scrollContainer"
+        class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 cursor-grab scroll-smooth"
+        @mousedown="onMouseDown"
+      >
+        <a
+          v-for="repo in filteredRepos"
+          :key="repo.id"
+          :href="repo.html_url"
+          target="_blank"
+          rel="noopener noreferrer"
+          :aria-label="`Lihat repositori ${repo.name} di GitHub`"
+          class="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70 shadow-lg cv-card transition-[transform,box-shadow,border-color] duration-300 hover:border-violet-500/50 hover:shadow-[0_12px_40px_-10px_rgba(139,92,246,0.35)] hover:-translate-y-1.5 snap-start shrink-0 w-[85vw] sm:w-[380px]"
+          @click.capture="onClickCapture"
+        >
+          <!-- Project Image -->
+          <figure class="relative w-full aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
+            <img
+              src="/images/baridlogo.webp"
+              :alt="repo.name"
+              width="96"
+              height="96"
+              class="w-24 h-24 object-contain transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+              decoding="async"
+            />
+            <!-- Gradient Overlay on Image -->
             <div
-              v-if="isRecent(repo.pushed_at)"
-              class="shrink-0 rounded-md bg-violet-600/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-md"
+              class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"
+            ></div>
+          </figure>
+
+          <!-- Card Body -->
+          <div class="flex flex-1 flex-col gap-3 p-4 sm:p-5">
+            <!-- Title + Badge -->
+            <div class="flex items-start gap-2">
+              <h3
+                class="font-jakarta text-base sm:text-lg font-bold text-white leading-snug group-hover:text-violet-300 transition-colors line-clamp-1 flex-1"
+              >
+                {{ repo.name.replace(/-/g, ' ').replace(/_/g, ' ') }}
+              </h3>
+              <div
+                v-if="isRecent(repo.pushed_at)"
+                class="shrink-0 rounded-md bg-violet-600/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-md"
+              >
+                NEW
+              </div>
+            </div>
+
+            <!-- Description -->
+            <p
+              class="font-jakarta text-xs sm:text-sm leading-relaxed text-slate-400 line-clamp-2 flex-1"
             >
-              NEW
+              {{
+                repo.description ||
+                `Repository ${repo.name} — proyek oleh ${GITHUB_USERNAME}`
+              }}
+            </p>
+
+            <!-- Footer: Language + Stars + Fork + Updated -->
+            <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-800/60">
+              <!-- Language Badge -->
+              <span
+                v-if="repo.language"
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] font-semibold font-jakarta"
+                :class="langColors[repo.language] || langColors[null]"
+              >
+                <span
+                  class="inline-block size-2 rounded-full"
+                  :class="
+                    repo.language === 'JavaScript'
+                      ? 'bg-yellow-400'
+                      : repo.language === 'TypeScript'
+                        ? 'bg-blue-400'
+                        : repo.language === 'PHP'
+                          ? 'bg-indigo-400'
+                          : repo.language === 'Blade'
+                            ? 'bg-orange-400'
+                            : repo.language === 'Python'
+                              ? 'bg-emerald-400'
+                              : repo.language === 'HTML'
+                                ? 'bg-red-400'
+                                : 'bg-slate-400'
+                  "
+                ></span>
+                {{ repo.language }}
+              </span>
+
+              <!-- Stars -->
+              <span
+                v-if="repo.stargazers_count > 0"
+                class="inline-flex items-center gap-1 text-[11px] font-semibold font-jakarta text-amber-300/80"
+              >
+                <Star class="size-3.5" />
+                {{ repo.stargazers_count }}
+              </span>
+
+              <!-- Forks -->
+              <span
+                v-if="repo.forks_count > 0"
+                class="inline-flex items-center gap-1 text-[11px] font-semibold font-jakarta text-slate-400"
+              >
+                <GitFork class="size-3.5" />
+                {{ repo.forks_count }}
+              </span>
+
+              <!-- Spacer -->
+              <span class="flex-1"></span>
+
+              <!-- Updated date -->
+              <span class="text-[10px] text-slate-500 font-jakarta whitespace-nowrap">
+                {{ timeAgo(repo.pushed_at) }}
+              </span>
+
+              <!-- External Link Icon -->
+              <ExternalLink
+                class="size-3.5 text-slate-500 group-hover:text-violet-400 transition-colors shrink-0"
+              />
             </div>
           </div>
+        </a>
+      </div>
 
-          <!-- Description -->
-          <p
-            class="font-jakarta text-xs sm:text-sm leading-relaxed text-slate-400 line-clamp-2 flex-1"
-          >
-            {{
-              repo.description ||
-              `Repository ${repo.name} — proyek oleh ${GITHUB_USERNAME}`
-            }}
-          </p>
-
-          <!-- Footer: Language + Stars + Fork + Updated -->
-          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-800/60">
-            <!-- Language Badge -->
-            <span
-              v-if="repo.language"
-              class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] font-semibold font-jakarta"
-              :class="langColors[repo.language] || langColors[null]"
-            >
-              <span
-                class="inline-block size-2 rounded-full"
-                :class="
-                  repo.language === 'JavaScript'
-                    ? 'bg-yellow-400'
-                    : repo.language === 'TypeScript'
-                      ? 'bg-blue-400'
-                      : repo.language === 'PHP'
-                        ? 'bg-indigo-400'
-                        : repo.language === 'Blade'
-                          ? 'bg-orange-400'
-                          : repo.language === 'Python'
-                            ? 'bg-emerald-400'
-                            : repo.language === 'HTML'
-                              ? 'bg-red-400'
-                              : 'bg-slate-400'
-                "
-              ></span>
-              {{ repo.language }}
-            </span>
-
-            <!-- Stars -->
-            <span
-              v-if="repo.stargazers_count > 0"
-              class="inline-flex items-center gap-1 text-[11px] font-semibold font-jakarta text-amber-300/80"
-            >
-              <Star class="size-3.5" />
-              {{ repo.stargazers_count }}
-            </span>
-
-            <!-- Forks -->
-            <span
-              v-if="repo.forks_count > 0"
-              class="inline-flex items-center gap-1 text-[11px] font-semibold font-jakarta text-slate-400"
-            >
-              <GitFork class="size-3.5" />
-              {{ repo.forks_count }}
-            </span>
-
-            <!-- Spacer -->
-            <span class="flex-1"></span>
-
-            <!-- Updated date -->
-            <span class="text-[10px] text-slate-500 font-jakarta whitespace-nowrap">
-              {{ timeAgo(repo.pushed_at) }}
-            </span>
-
-            <!-- External Link Icon -->
-            <ExternalLink
-              class="size-3.5 text-slate-500 group-hover:text-violet-400 transition-colors shrink-0"
-            />
-          </div>
-        </div>
-      </a>
+      <!-- Right Navigation Arrow -->
+      <button
+        @click="scrollByAmount('right')"
+        aria-label="Scroll proyek ke kanan"
+        class="absolute -right-4 sm:-right-12 top-1/2 -translate-y-1/2 z-30 size-10 sm:size-12 rounded-full border border-violet-500/40 bg-slate-900/95 text-white shadow-2xl backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:bg-violet-600 hover:border-violet-400 hover:scale-110 active:scale-95"
+      >
+        <ChevronRight class="size-6 text-violet-200" />
+      </button>
     </div>
 
     <!-- GitHub Profile Link -->

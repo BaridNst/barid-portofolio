@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
+import { onMounted, onUnmounted, defineAsyncComponent } from 'vue'
 import { ArrowRight } from '@lucide/vue'
 
 // Lazy load all below-fold components — reduces initial JS bundle & TBT dramatically
@@ -16,20 +16,38 @@ const ContactSection = defineAsyncComponent(() =>
   import('../components/ContactSection.vue')
 )
 
-const aboutPoints = [
-  'Membangun antarmuka yang responsif & interaktif dengan Vue & Tailwind',
-  'Integrasi frontend–backend lewat REST API (Node.js / Express / Laravel)',
-  'Gemar eksplorasi desain UI, tool baru, & selalu belajar hal baru',
-]
+let observer = null
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+        } else {
+          entry.target.classList.remove('is-visible')
+        }
+      })
+    },
+    { threshold: 0.1 }
+  )
+
+  const elements = document.querySelectorAll('.scroll-reveal')
+  elements.forEach((el) => observer.observe(el))
+})
+
+onUnmounted(() => {
+  if (observer) observer.disconnect()
+})
 </script>
 
 <template>
   <div class="w-full overflow-hidden">
     <section
       id="top"
-      class="cv-auto relative flex items-center bg-gradient-to-b from-[#fafafa] via-[#fafafa] via-75% to-slate-950 px-6 pt-6 pb-16 sm:px-10 sm:pt-8 sm:pb-24 lg:pt-10 lg:pb-28"
+      class="cv-auto relative flex items-center bg-gradient-to-b from-[#fafafa] via-[#fafafa] via-75% to-slate-950 px-6 pt-6 pb-8 sm:px-10 sm:pt-8 sm:pb-12 lg:pt-10 lg:pb-16"
     >
-      <div class="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-2">
+      <div class="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-2">
         <div class="flex flex-col items-start gap-6">
           <h1
             class="fade-up font-danger text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl"
@@ -71,47 +89,54 @@ const aboutPoints = [
             <a
               href="#contact"
               aria-label="Hubungi Saya"
-              class="font-jakarta inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/60 px-6 py-3 text-sm font-semibold text-violet-700 shadow-[0_8px_24px_-12px_rgba(124,58,237,0.35)] transition-[transform,background-color,box-shadow,border-color] duration-300 hover:scale-105 hover:bg-violet-50 hover:shadow-[0_12px_28px_-12px_rgba(124,58,237,0.45)] active:scale-95 backdrop-blur"
+              class="font-jakarta inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/60 px-6 py-3 text-sm font-bold text-violet-700 shadow-[0_8px_24px_-12px_rgba(124,58,237,0.35)] transition-[transform,background-color,box-shadow,border-color] duration-300 hover:scale-105 hover:bg-violet-50 hover:shadow-[0_12px_28px_-12px_rgba(124,58,237,0.45)] active:scale-95 backdrop-blur"
             >
               Hubungi Saya
             </a>
           </div>
         </div>
 
-        <div class="relative mx-auto w-full max-w-md lg:max-w-none flex items-center justify-center">
-          <!-- DaisyUI Aura Dual + Hover 3D -->
-          <div class="aura aura-dual aura-lg text-violet-500">
-            <div class="hover-3d">
-              <!-- Card Content -->
-              <div class="hero-3d-card">
-                <!-- Inner card container -->
-                <div class="hero-3d-inner">
-                  <div class="w-full overflow-hidden rounded-xl shadow-inner aspect-[4/5] bg-slate-900">
-                    <img
-                      src="/images/haram-malas.webp"
-                      alt="A Barid Dinda Khair Nasution - Rakus Akan Ilmu Menjadi Pilihanku"
-                      width="400"
-                      height="500"
-                      class="block w-full h-full rounded-xl object-cover"
-                      loading="eager"
-                      fetchpriority="high"
-                      decoding="async"
-                    />
-                  </div>
-                  <p class="pt-3 text-center font-jakarta text-sm font-medium italic text-slate-300/90 tracking-wide">
-                    "Rakus Akan Ilmu Menjadi Pilihanku"
-                  </p>
-                </div>
+        <div class="relative mx-auto flex w-full items-center justify-center">
+          <!-- Ambient Card Backglow -->
+          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 opacity-25 blur-xl transition-all duration-500 group-hover:opacity-50 group-hover:blur-2xl"></div>
+
+          <!-- Ultra-Cool Tech Glass Card -->
+          <div class="group relative w-full max-w-[320px] sm:max-w-[350px] overflow-hidden rounded-2xl border border-violet-500/30 bg-slate-950/90 p-3 sm:p-4 shadow-[0_20px_50px_-15px_rgba(124,58,237,0.35)] backdrop-blur-xl transition-all duration-500 hover:border-violet-400/70 hover:shadow-[0_25px_60px_-10px_rgba(124,58,237,0.5)] hover:-translate-y-1">
+            
+            <!-- Card Header: Window Controls + Label -->
+            <div class="flex items-center justify-between pb-2.5 px-1 border-b border-white/10">
+              <div class="flex items-center gap-1.5">
+                <span class="size-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="size-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="size-2.5 rounded-full bg-emerald-500/80"></span>
               </div>
-              <!-- 8 empty divs needed for the 3D effect -->
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+              <span class="font-jakarta text-xs font-bold text-violet-300/90 tracking-wide">
+                Pace Kamba
+              </span>
+            </div>
+
+            <!-- Image Frame -->
+            <div class="relative mt-3 overflow-hidden rounded-xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 p-1 border border-white/5">
+              <img
+                src="/images/baridnobackround.webp"
+                alt="A Barid Dinda Khair Nasution"
+                width="320"
+                height="460"
+                class="block w-full max-h-[280px] sm:max-h-[330px] object-contain object-bottom transition-transform duration-700 ease-out group-hover:scale-105"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+
+              <!-- Subtle Bottom Gradient Blend -->
+              <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent pointer-events-none"></div>
+            </div>
+
+            <!-- Card Footer: Motto -->
+            <div class="pt-3 pb-0.5 text-center">
+              <p class="font-jakarta text-xs font-semibold italic text-violet-200/90 tracking-wide">
+                "Rakus Akan Ilmu Menjadi Pilihanku"
+              </p>
             </div>
           </div>
         </div>
@@ -119,14 +144,16 @@ const aboutPoints = [
     </section>
 
     <!-- Dev Icons Dual Slanted Ribbon Marquee -->
-    <DevIconsMarquee />
+    <div class="scroll-reveal">
+      <DevIconsMarquee />
+    </div>
 
     <section
       id="about"
       class="cv-auto flex min-h-svh scroll-mt-24 items-center bg-[#fafafa] px-4 py-16 sm:px-8 relative overflow-hidden"
     >
       <div class="mx-auto w-full max-w-6xl relative z-10">
-        <div class="text-center mb-6">
+        <div class="text-center mb-6 scroll-reveal">
           <h2 class="font-jakarta text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
             Tentang Saya
           </h2>
@@ -135,7 +162,9 @@ const aboutPoints = [
           </p>
         </div>
 
-        <ProfileCard />
+        <div class="scroll-reveal scroll-reveal-delay-1">
+          <ProfileCard />
+        </div>
       </div>
     </section>
 
@@ -144,7 +173,7 @@ const aboutPoints = [
       class="cv-auto min-h-svh scroll-mt-24 bg-[#fafafa] px-4 pt-16 pb-8 sm:px-8 relative overflow-hidden"
     >
       <div class="mx-auto w-full max-w-6xl relative z-10">
-        <div class="text-center mb-10">
+        <div class="text-center mb-10 scroll-reveal">
           <h2 class="font-jakarta text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
             Proyek Saya
           </h2>
@@ -153,7 +182,9 @@ const aboutPoints = [
           </p>
         </div>
 
-        <GitHubProjects />
+        <div class="scroll-reveal scroll-reveal-delay-1">
+          <GitHubProjects />
+        </div>
       </div>
     </section>
 
@@ -161,7 +192,7 @@ const aboutPoints = [
       id="contact"
       class="cv-auto min-h-svh scroll-mt-24 bg-gradient-to-b from-[#fafafa] via-violet-50/40 to-violet-100/60 px-4 pt-8 pb-16 sm:px-8 relative overflow-hidden"
     >
-      <div class="mx-auto w-full max-w-6xl relative z-10">
+      <div class="mx-auto w-full max-w-6xl relative z-10 scroll-reveal">
         <ContactSection />
       </div>
     </section>
@@ -217,60 +248,5 @@ const aboutPoints = [
   }
 }
 
-/* ═══════════ Hero 3D Card Styles ═══════════ */
-.hero-3d-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-box, 1rem);
-  background: linear-gradient(180deg, #18181b 0%, #09090b 50%, #0c0a15 100%);
-  padding: 1.25rem;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    0 10px 30px rgba(124, 58, 237, 0.2);
-}
 
-/* Subtle purple glow inside card */
-.hero-3d-card::before {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  bottom: -2.5rem;
-  right: -2.5rem;
-  width: 12rem;
-  height: 12rem;
-  border-radius: 9999px;
-  background: rgba(147, 51, 234, 0.2);
-  filter: blur(40px);
-}
-
-.hero-3d-card::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  top: -2rem;
-  left: -2rem;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 9999px;
-  background: rgba(139, 92, 246, 0.12);
-  filter: blur(40px);
-}
-
-.hero-3d-inner {
-  position: relative;
-  border-radius: 0.75rem;
-  background: rgba(30, 35, 48, 0.9);
-  padding: 1rem;
-  border: 1px solid rgba(100, 116, 139, 0.25);
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-@media (hover: none), (max-width: 640px) {
-  .hero-3d-inner {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-}
 </style>

@@ -3,7 +3,6 @@ import { ref, computed, onMounted } from 'vue'
 import { usePauseWhenHidden } from '../composables/usePauseWhenHidden'
 import {
   Send,
-  Sparkles,
   ExternalLink,
   User,
   AtSign,
@@ -109,12 +108,9 @@ const socialLinks = [
 
     <!-- Section Header -->
     <div class="text-center mb-10 sm:mb-14 relative z-10">
-      <div class="inline-flex items-center gap-2 rounded-full border border-violet-300/40 bg-violet-50/80 px-4 py-1.5 backdrop-blur-md mb-4">
-
-        <span class="font-jakarta text-xs font-bold uppercase tracking-widest text-violet-600">
-          Hubungi Saya
-        </span>
-      </div>
+      <span class="font-jakarta text-xs sm:text-sm font-extrabold uppercase tracking-widest text-violet-600 block mb-2">
+        Hubungi Saya
+      </span>
       <h2 class="font-jakarta text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight">
         Mari <span class="contact-gradient-text">Terhubung</span>
       </h2>
@@ -164,42 +160,31 @@ const socialLinks = [
         </div>
 
         <!-- Social Links Card -->
-        <div class="aura aura-dual text-violet-400">
-          <div class="contact-social-card">
-            <h4 class="font-jakarta text-xs font-bold uppercase tracking-widest text-gray-500 mb-4 flex items-center gap-2">
-              <Sparkles class="size-3.5 text-violet-400 contact-sparkle" />
-              Temukan Saya
-            </h4>
-            <div class="flex gap-3">
-              <a
-                v-for="social in socialLinks"
-                :key="social.label"
-                :href="social.href"
-                target="_blank"
-                rel="noopener noreferrer"
-                :aria-label="social.label"
-                class="contact-social-btn"
-                :style="{ '--brand-color': social.hoverBg }"
-              >
-                <span v-html="social.svg"></span>
-              </a>
-            </div>
-
-            <!-- Fun Quote -->
-            <div class="mt-5 pt-4 border-t border-violet-100/60">
-              <p class="font-jakarta text-xs text-gray-400 italic leading-relaxed">
-                "Code is poetry, and I write sonnets in JavaScript."
-                <span class="not-italic">✨</span>
-              </p>
-            </div>
+        <div class="contact-social-card">
+          <h4 class="font-jakarta text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">
+            Temukan Saya
+          </h4>
+          <div class="flex gap-3">
+            <a
+              v-for="social in socialLinks"
+              :key="social.label"
+              :href="social.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="social.label"
+              class="contact-social-btn"
+              :style="{ '--brand-color': social.hoverBg }"
+            >
+              <span v-html="social.svg"></span>
+            </a>
           </div>
+
         </div>
 
       </div>
 
       <!-- Right Column: Contact Form -->
-      <div class="aura aura-dual aura-lg text-violet-500">
-        <div class="contact-form-card">
+      <div class="contact-form-card">
           <!-- Form Header -->
           <div class="flex items-center gap-3 mb-6">
             <div class="contact-form-icon">
@@ -301,7 +286,6 @@ const socialLinks = [
             </button>
           </form>
         </div>
-      </div>
     </div>
 
     <!-- Bottom Decorative Wave -->
