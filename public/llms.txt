@@ -1,8 +1,15 @@
 # Barid Nasution Portfolio
 
-> Web Developer & Mahasiswa Teknologi Informasi
+> Nama: A Barid Dinda Khair Nasution
+> Web Developer Junior & Mahasiswa Teknologi Informasi Universitas Islam Negeri Ar-Raniry Banda Aceh
+> NIM : 230705197
+> TTL: Medan, 23 April 2005
+> Jenis Kelamin: Laki-Laki
+> Moto Hidup : "Rakus Akan Ilmu Menjadi Pilihanku"
+> Website Official: https://barid.ideolog.tech/
 
-- [Home](https://barid-nasution.vercel.app/#top)
-- [About](https://barid-nasution.vercel.app/#about)
-- [Projects](https://barid-nasution.vercel.app/#project)
-- [Contact](https://barid-nasution.vercel.app/#contact)
+- [Home](https://barid.ideolog.tech/#top)
+- [About](https://barid.ideolog.tech/#about)
+- [Projects](https://barid.ideolog.tech/#project)
+- [Contact](https://barid.ideolog.tech/#contact)
+

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://barid-nasution.vercel.app/sitemap.xml
+Sitemap: https://barid.ideolog.tech/sitemap.xml
