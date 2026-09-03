@@ -8,14 +8,14 @@ const items = [
 </script>
 
 <template>
-  <div class="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4 sm:py-5">
+  <header class="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4 sm:py-5">
     <div
       class="relative z-10 flex w-fit max-w-full items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-lg sm:gap-6 sm:px-6"
     >
-      <a href="#top" class="motion-logo mr-2 flex shrink-0 items-center sm:mr-6">
+      <a href="#top" aria-label="Beranda Barid Nasution" class="motion-logo mr-2 flex shrink-0 items-center sm:mr-6">
         <img
           src="/images/baridlogo.webp"
-          alt="Barid"
+          alt="Logo Barid Nasution"
           width="48"
           height="48"
           class="h-12 w-12 rounded-full object-cover shadow-sm sm:h-14 sm:w-14"
@@ -25,11 +25,12 @@ const items = [
         />
       </a>
 
-      <nav class="flex items-center gap-1 sm:gap-2">
+      <nav aria-label="Navigasi Utama" class="flex items-center gap-1 sm:gap-2">
         <a
           v-for="(item, i) in items"
           :key="item.to"
           :href="item.to"
+          :aria-label="item.label"
           class="fade-down shrink-0 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold text-gray-900 transition-[transform,background-color,color] duration-300 hover:scale-105 hover:bg-violet-200 hover:text-violet-900 active:scale-90 active:bg-violet-300 active:text-violet-900 sm:px-3 sm:text-sm"
           :style="{ animationDelay: `${i * 0.05}s` }"
         >
@@ -37,7 +38,7 @@ const items = [
         </a>
       </nav>
     </div>
-  </div>
+  </header>
 </template>
 
 <style scoped>

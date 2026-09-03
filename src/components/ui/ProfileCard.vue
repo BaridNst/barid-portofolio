@@ -657,6 +657,8 @@ onMounted(() => setup(wrapperRef.value))
   border-radius: 0.75rem;
   overflow: hidden;
   margin: 0 !important;
+  aspect-ratio: 3 / 4;
+  background-color: rgba(139, 92, 246, 0.05);
 }
 .profile-image {
   width: 100%;

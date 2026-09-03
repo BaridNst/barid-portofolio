@@ -1,0 +1,8 @@
+# Barid Nasution Portfolio
+
+> Web Developer & Mahasiswa Teknologi Informasi
+
+- [Home](https://barid-nasution.vercel.app/#top)
+- [About](https://barid-nasution.vercel.app/#about)
+- [Projects](https://barid-nasution.vercel.app/#project)
+- [Contact](https://barid-nasution.vercel.app/#contact)

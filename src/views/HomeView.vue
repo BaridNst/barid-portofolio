@@ -62,6 +62,7 @@ const aboutPoints = [
           >
             <a
               href="#project"
+              aria-label="Lihat Proyek Portofolio"
               class="group font-jakarta inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(124,58,237,0.6)] transition-[transform,background-color,box-shadow] duration-300 hover:scale-105 hover:bg-violet-500 hover:shadow-[0_14px_35px_-10px_rgba(124,58,237,0.7)] active:scale-95"
             >
               Lihat Proyek
@@ -69,6 +70,7 @@ const aboutPoints = [
             </a>
             <a
               href="#contact"
+              aria-label="Hubungi Saya"
               class="font-jakarta inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/60 px-6 py-3 text-sm font-semibold text-violet-700 shadow-[0_8px_24px_-12px_rgba(124,58,237,0.35)] transition-[transform,background-color,box-shadow,border-color] duration-300 hover:scale-105 hover:bg-violet-50 hover:shadow-[0_12px_28px_-12px_rgba(124,58,237,0.45)] active:scale-95 backdrop-blur"
             >
               Hubungi Saya
@@ -84,16 +86,16 @@ const aboutPoints = [
               <div class="hero-3d-card">
                 <!-- Inner card container -->
                 <div class="hero-3d-inner">
-                  <div class="w-full overflow-hidden rounded-xl shadow-inner">
+                  <div class="w-full overflow-hidden rounded-xl shadow-inner aspect-[4/5] bg-slate-900">
                     <img
                       src="/images/haram-malas.webp"
-                      alt="Rakus Akan Ilmu Menjadi Pilihanku"
+                      alt="A Barid Dinda Khair Nasution - Rakus Akan Ilmu Menjadi Pilihanku"
                       width="400"
                       height="500"
-                      class="block w-full rounded-xl object-cover"
+                      class="block w-full h-full rounded-xl object-cover"
                       loading="eager"
                       fetchpriority="high"
-                      decoding="sync"
+                      decoding="async"
                     />
                   </div>
                   <p class="pt-3 text-center font-jakarta text-sm font-medium italic text-slate-300/90 tracking-wide">

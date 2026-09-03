@@ -141,6 +141,7 @@ const socialLinks = [
               :href="info.href"
               :target="info.href ? '_blank' : undefined"
               rel="noopener noreferrer"
+              :aria-label="info.href ? `Hubungi via ${info.label}: ${info.value}` : `${info.label}: ${info.value}`"
               class="flex items-center gap-4 p-4 sm:p-5"
             >
               <div class="contact-info-icon" :class="info.color">
