@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { usePauseWhenHidden } from '../../composables/usePauseWhenHidden'
+import { motion } from 'motion-v'
 import {
   GraduationCap,
   Briefcase,
@@ -49,7 +50,7 @@ const props = defineProps({
   },
   educationLogo: {
     type: String,
-    default: '/images/LOGOUIN.png',
+    default: '/images/LOGOUIN.webp',
   },
   companyName: {
     type: String,
@@ -156,9 +157,13 @@ onMounted(() => setup(wrapperRef.value))
           "
         >
           <!-- Text Content Side -->
-          <div
+          <motion.div
             class="flex flex-col gap-5"
             :class="imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1'"
+            :initial="{ opacity: 0, y: 30 }"
+            :whileInView="{ opacity: 1, y: 0 }"
+            :viewport="{ once: true }"
+            :transition="{ duration: 0.6, ease: 'easeOut' }"
           >
             <!-- Name & Role -->
             <div>
@@ -243,12 +248,16 @@ onMounted(() => setup(wrapperRef.value))
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           <!-- Image Side -->
-          <div
+          <motion.div
             class="relative flex flex-col items-center justify-center"
             :class="imagePosition === 'left' ? 'lg:order-1' : 'lg:order-2'"
+            :initial="{ opacity: 0, scale: 0.95, y: 30 }"
+            :whileInView="{ opacity: 1, scale: 1, y: 0 }"
+            :viewport="{ once: true }"
+            :transition="{ duration: 0.7, delay: 0.15, ease: [0.25, 1, 0.5, 1] }"
           >
             <div class="profile-image-wrapper">
               <!-- Glow Ring behind image -->
@@ -274,14 +283,20 @@ onMounted(() => setup(wrapperRef.value))
                 </figure>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <!-- Divider -->
         <div class="divider mx-6 sm:mx-8 lg:mx-10 my-0 before:bg-violet-200/60 after:bg-violet-200/60"></div>
 
         <!-- Tech Stack Section -->
-        <div class="p-6 sm:p-8 lg:p-10 pt-2 sm:pt-4">
+        <motion.div
+          class="p-6 sm:p-8 lg:p-10 pt-2 sm:pt-4"
+          :initial="{ opacity: 0, y: 30 }"
+          :whileInView="{ opacity: 1, y: 0 }"
+          :viewport="{ once: true }"
+          :transition="{ duration: 0.6, delay: 0.1, ease: 'easeOut' }"
+        >
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <h3 class="profile-stack-title">
               <span class="profile-stack-dot"></span>
@@ -356,7 +371,7 @@ onMounted(() => setup(wrapperRef.value))
               </div>
             </template>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
     </div><!-- /aura -->

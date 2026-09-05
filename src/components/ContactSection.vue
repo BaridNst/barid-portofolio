@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { usePauseWhenHidden } from '../composables/usePauseWhenHidden'
+import { motion } from 'motion-v'
 import {
   Send,
   ExternalLink,
@@ -9,6 +10,7 @@ import {
   MessageSquare,
   CheckCircle2,
   ArrowRight,
+  Mail,
 } from '@lucide/vue'
 
 const form = ref({
@@ -107,7 +109,13 @@ const socialLinks = [
     <div class="contact-orb contact-orb--3"></div>
 
     <!-- Section Header -->
-    <div class="text-center mb-10 sm:mb-14 relative z-10">
+    <motion.div
+      class="text-center mb-10 sm:mb-14 relative z-10"
+      :initial="{ opacity: 0, y: 30 }"
+      :whileInView="{ opacity: 1, y: 0 }"
+      :viewport="{ once: true }"
+      :transition="{ duration: 0.6, ease: 'easeOut' }"
+    >
       <span class="font-jakarta text-xs sm:text-sm font-extrabold uppercase tracking-widest text-violet-600 block mb-2">
         Hubungi Saya
       </span>
@@ -117,7 +125,7 @@ const socialLinks = [
       <p class="font-jakarta text-sm sm:text-base text-gray-500 mt-3 max-w-md mx-auto leading-relaxed">
         Punya ide proyek atau ingin berkolaborasi? Jangan ragu untuk menghubungi saya.
       </p>
-    </div>
+    </motion.div>
 
     <!-- Main Content Grid -->
     <div class="relative z-10 grid gap-6 lg:gap-8 lg:grid-cols-[1fr_1.3fr] items-start">
@@ -127,10 +135,14 @@ const socialLinks = [
 
         <!-- Contact Info Cards -->
         <div class="flex flex-col gap-3">
-          <div
+          <motion.div
             v-for="(info, idx) in contactInfo"
             :key="idx"
             class="contact-info-card group"
+            :initial="{ opacity: 0, y: 30 }"
+            :whileInView="{ opacity: 1, y: 0 }"
+            :viewport="{ once: true }"
+            :transition="{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }"
           >
             <component
               :is="info.href ? 'a' : 'div'"
@@ -156,11 +168,17 @@ const socialLinks = [
                 class="size-4 text-gray-300 group-hover:text-violet-500 transition-colors shrink-0"
               />
             </component>
-          </div>
+          </motion.div>
         </div>
 
         <!-- Social Links Card -->
-        <div class="contact-social-card">
+        <motion.div
+          class="contact-social-card"
+          :initial="{ opacity: 0, y: 30 }"
+          :whileInView="{ opacity: 1, y: 0 }"
+          :viewport="{ once: true }"
+          :transition="{ duration: 0.6, delay: 0.3, ease: 'easeOut' }"
+        >
           <h4 class="font-jakarta text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">
             Temukan Saya
           </h4>
@@ -179,12 +197,18 @@ const socialLinks = [
             </a>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
 
       <!-- Right Column: Contact Form -->
-      <div class="contact-form-card">
+      <motion.div
+        class="contact-form-card"
+        :initial="{ opacity: 0, y: 40 }"
+        :whileInView="{ opacity: 1, y: 0 }"
+        :viewport="{ once: true }"
+        :transition="{ duration: 0.7, delay: 0.2, ease: [0.25, 1, 0.5, 1] }"
+      >
           <!-- Form Header -->
           <div class="flex items-center gap-3 mb-6">
             <div class="contact-form-icon">
@@ -285,7 +309,7 @@ const socialLinks = [
               <ArrowRight v-if="!isSubmitting" class="size-4 transition-transform group-hover:translate-x-1" />
             </button>
           </form>
-        </div>
+        </motion.div>
     </div>
 
     <!-- Bottom Decorative Wave -->

@@ -26,6 +26,10 @@ export default defineConfig({
     cssCodeSplit: true,
     // Chunk size warning threshold
     chunkSizeWarningLimit: 600,
+    // Disable unnecessary modulePreload polyfills in modern browsers
+    modulePreload: {
+      polyfill: false,
+    },
     rollupOptions: {
       output: {
         // Manual chunking — function form required by Rolldown (Vite 8)
@@ -39,6 +43,9 @@ export default defineConfig({
           if (id.includes('node_modules/@vueuse')) {
             return 'vueuse-vendor'
           }
+          if (id.includes('node_modules/motion-v') || id.includes('node_modules/framer-motion') || id.includes('node_modules/motion-dom')) {
+            return 'motion-vendor'
+          }
         },
         // Hash filenames for better cache busting
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -48,6 +55,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['vue', 'vue-router', '@lucide/vue', '@vueuse/core'],
+    include: ['vue', 'vue-router', '@lucide/vue', '@vueuse/core', 'motion-v'],
   },
 })

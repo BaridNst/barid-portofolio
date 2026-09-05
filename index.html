@@ -28,27 +28,29 @@
     <meta name="twitter:image" content="https://barid.ideolog.tech/images/baridnobackround.webp" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/images/baridlogo.png" />
+    <link rel="icon" type="image/webp" href="/images/baridlogo.webp" />
 
     <!-- DNS prefetch for external APIs -->
     <link rel="dns-prefetch" href="https://api.github.com" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
-    <!-- Preload LCP hero image (above-the-fold) -->
-    <link rel="preload" as="image" href="/images/baridnobackround.webp" fetchpriority="high" />
+    <!-- Preload LCP assets & custom font -->
+    <link rel="preload" href="/fonts/AnotherDanger.otf" as="font" type="font/otf" crossorigin />
+    <link rel="preload" as="image" href="/images/baridlogo.webp" type="image/webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/baridnobackround.webp" type="image/webp" fetchpriority="high" />
 
-    <!-- Google Fonts: preconnect & swap -->
+    <!-- Google Fonts: Plus Jakarta Sans only -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
     </noscript>
 
     <!-- Structured Data (JSON-LD) for Person/Portfolio -->

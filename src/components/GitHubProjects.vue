@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Star, GitFork, ExternalLink, AlertCircle, ChevronLeft, ChevronRight } from '@lucide/vue'
+import { motion } from 'motion-v'
 
 // Drag-to-scroll state
 const scrollContainer = ref(null)
@@ -148,16 +149,16 @@ onMounted(fetchRepos)
         :key="i"
         class="shrink-0 w-[85vw] sm:w-[380px] rounded-2xl border border-slate-800 bg-slate-900/70 overflow-hidden"
       >
-        <div class="relative w-full aspect-[16/9] bg-slate-800 animate-pulse"></div>
+        <div class="relative w-full aspect-[16/9] bg-slate-800"></div>
         <div class="flex flex-col gap-3 p-4 sm:p-5">
-          <div class="h-5 w-3/4 rounded bg-slate-800 animate-pulse"></div>
+          <div class="h-5 w-3/4 rounded bg-slate-800"></div>
           <div class="flex flex-col gap-1.5">
-            <div class="h-3 w-full rounded bg-slate-800 animate-pulse"></div>
-            <div class="h-3 w-2/3 rounded bg-slate-800 animate-pulse"></div>
+            <div class="h-3 w-full rounded bg-slate-800"></div>
+            <div class="h-3 w-2/3 rounded bg-slate-800"></div>
           </div>
           <div class="flex gap-2 pt-1 border-t border-slate-800/60">
-            <div class="h-6 w-16 rounded-lg bg-slate-800 animate-pulse"></div>
-            <div class="h-6 w-10 rounded-lg bg-slate-800 animate-pulse"></div>
+            <div class="h-6 w-16 rounded-lg bg-slate-800"></div>
+            <div class="h-6 w-10 rounded-lg bg-slate-800"></div>
           </div>
         </div>
       </div>
@@ -195,15 +196,21 @@ onMounted(fetchRepos)
         class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 cursor-grab scroll-smooth"
         @mousedown="onMouseDown"
       >
-        <a
-          v-for="repo in filteredRepos"
+        <motion.a
+          v-for="(repo, idx) in filteredRepos"
           :key="repo.id"
           :href="repo.html_url"
           target="_blank"
           rel="noopener noreferrer"
           :aria-label="`Lihat repositori ${repo.name} di GitHub`"
-          class="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70 shadow-lg cv-card transition-[transform,box-shadow,border-color] duration-300 hover:border-violet-500/50 hover:shadow-[0_12px_40px_-10px_rgba(139,92,246,0.35)] hover:-translate-y-1.5 snap-start shrink-0 w-[85vw] sm:w-[380px]"
+          class="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70 shadow-lg cv-card transition-[box-shadow,border-color] duration-300 hover:border-violet-500/50 hover:shadow-[0_12px_40px_-10px_rgba(139,92,246,0.35)] snap-start shrink-0 w-[85vw] sm:w-[380px]"
           @click.capture="onClickCapture"
+          :initial="{ opacity: 0, y: 40 }"
+          :whileInView="{ opacity: 1, y: 0 }"
+          :viewport="{ once: true }"
+          :whileHover="{ y: -6 }"
+          :whileTap="{ scale: 0.98 }"
+          :transition="{ duration: 0.5, delay: (idx % 4) * 0.08, ease: [0.25, 1, 0.5, 1] }"
         >
           <!-- Project Image -->
           <figure class="relative w-full aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
@@ -310,7 +317,7 @@ onMounted(fetchRepos)
               />
             </div>
           </div>
-        </a>
+        </motion.a>
       </div>
 
       <!-- Right Navigation Arrow -->
